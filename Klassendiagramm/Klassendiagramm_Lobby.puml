@@ -1,0 +1,84 @@
+@startuml Durak Lobby
+
+skinparam{
+    ClassBackgroundColor white
+    ClassBorderColor black
+
+    'ClassAttributeIconSize 0
+
+    ArrowColor black
+
+    Shadowing false
+
+}
+
+class Spieler {
+    -eigenesSpiel: Spiel
+    -spielregelnDeffinieren(eigenesSpiel)
+    -spielStarten(eigenesSpiel)
+    -spielLoeschen(eigenesSpiel)
+    -spielBeitreten()
+}
+note left
+    Rollen:
+    Mitspieler 
+    Spiel-Ersteller
+end note
+
+class Lobby {
+    +offeneSpiele: Spiel[]
+    +anwesendeSpieler: Spieler[]
+    -regestrieren(name, mail, pwd)
+    -einloggen(name, pwd)
+    -ausloggen(Spieler)
+    -spielStarten(Spiel)
+}
+
+class Spiel {
+    + maxSpieler: Spieleranzahl
+    + anwesendeSpieler: Spieler[]
+    + regeln: Spielregeln
+}
+
+class Spielregeln {
+    + joker: Joker
+    + einzelrunde: Bool
+    + zeitProKarte: Int
+}
+
+class Chat {
+    + nachrichtenPosten(nachricht)
+    + privateNachrichtPosten(Spieler, nachricht)
+}
+
+enum Joker {
+    -kein Joker
+    -Handkarte und Rolle tauschen
+    -höher als Ass
+}
+
+enum Spieleranzahl {
+    - 1
+    - 2
+    - 3
+    - 4
+    - 5
+}
+
+
+
+Lobby "1" -- "0..*" Spieler
+
+Spieler "1..5" --o "1" Spiel : tritt bei oder erstellt >
+
+Spiel "1" *-- "1" Spielregeln : hat >
+
+Lobby "1" -- "0..*" Spiel 
+
+Spieler "0..*" -- "1" Chat : nutzt >
+
+Lobby "1" *-- "1" Chat 
+
+Spieler "0..1" -- "1" Spielregeln: deffiniert > 
+
+@enduml
