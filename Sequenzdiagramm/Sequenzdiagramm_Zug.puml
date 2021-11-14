@@ -37,6 +37,13 @@ note left: ab hier startet der Angriff
 
 sys -> v ++ : aktiviert
 sys -> sys : Fügt dem Timer Zeit hinzu
+note left  
+Hier hat der Verteidiger die 
+Chance eine Karte des 
+gleichen Werts hinzuzulegen.
+Dies triggert die funktion schieben()
+des Systems
+end note
 sys -> a ++-- : aktiviert
 
 
@@ -59,7 +66,7 @@ loop bis Karten Verteidiger = 0 \noder Verteidiger nimmt Karten auf \noder timer
     note left: bis zu diesem \nBlock wird der \nAngriff \nbeschrieben
 
     v ->> sys ++ : Legt Karte auf Angriffskarte,\num zu schalgen
-    note left: Ab hier startet \ndie Verteidigung
+    note left: Ab hier startet \ndie Verteidigung\n
 
     sys -> sys : validiert Karte
 

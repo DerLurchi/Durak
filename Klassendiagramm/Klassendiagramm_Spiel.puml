@@ -23,8 +23,10 @@ class Spiel {
 
     -spielStarten(regeln, trumpf) : Deck
     -zugBeenden()
-    -verteidigerDeffinieren()
-    -angreiferDeffinieren()
+    -verteidigerDeffinieren(angreifer)
+    -angreiferDeffinieren(verteidiger)
+    -schieben()
+    -karteValidieren(Karte) : Bool
 }
 
 class Spieler {
