@@ -1,6 +1,8 @@
 @startuml Durak Zug
 
 skinparam {
+    Style strictuml
+
     ArrowColor black
     ActorBorderColor black
     ActorBackgroundColor white
