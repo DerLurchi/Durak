@@ -1,4 +1,4 @@
-@startuml Durak Lobby
+@startuml Durak Spiel
 
 skinparam{
     ClassBackgroundColor white
@@ -28,6 +28,7 @@ class Spiel {
 }
 
 class Spieler {
+    +name : String
     +rolle: Rolle
     -hand: Karte[]
 

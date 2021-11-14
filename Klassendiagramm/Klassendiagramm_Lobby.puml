@@ -13,6 +13,7 @@ skinparam{
 }
 
 class Spieler {
+    +name : String
     -eigenesSpiel: Spiel
     -spielregelnDeffinieren(eigenesSpiel)
     -spielStarten(eigenesSpiel)
