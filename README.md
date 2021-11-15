@@ -1,7 +1,9 @@
 # Durak
 
 ## Trello
-Die Stati des Projekts wurden über Screenshots aus Trello dokumentiert.
+Die Stati des Projekts wurden über Screenshots aus Trello dokumentiert. 
+Link zum Trello Board:
+https://trello.com/b/fDjTbPd8/durak
 
 ## Use Case Beschreibungen
 Die Use Case Beschreibungen liegen als Word Dokument in entsprechenden Ordner
