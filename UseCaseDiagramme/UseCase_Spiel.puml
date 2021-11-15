@@ -17,9 +17,11 @@ actor :Spieler: as Spieler
 actor :Angreifer: as Angreifer
 actor :Verteidiger: as Verteidiger
 actor :Spielleiter: as Leiter
+actor :1. Angreifer: as a1
 
 
 rectangle Spiel {
+    (Zug eröffnen) as start
     (Spiel verlassen) as verlassen
     (Spiel beenden) as beenden
     (angreifen)
@@ -31,12 +33,15 @@ rectangle Spiel {
 Angreifer --|> Spieler
 Verteidiger --|> Spieler
 Leiter --|> Spieler
+a1 --|> Angreifer
 
 Spieler -- verlassen
 Spieler -- nachziehen
 Angreifer -- angreifen
 Verteidiger -- verteidigen
 Verteidiger -- schieben
+
+a1 -- start 
 
 Leiter -- beenden
 

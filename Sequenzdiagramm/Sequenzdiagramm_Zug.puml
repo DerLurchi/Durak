@@ -25,7 +25,7 @@ skinparam Shadowing false
 '-----------------------------------------------------
 
 actor "1. Angreifer" as a1
-actor "Angreifer" as a
+actor "[Angreifer]" as a
 entity System as sys
 actor Verteidiger as v
 
@@ -43,7 +43,7 @@ gleichen Werts hinzuzulegen.
 Dies triggert die funktion schieben()
 des Systems
 end note
-sys -> a ++-- : aktiviert
+sys -> a ++-- : Fügt den 1. Angreifer der \nGruppe der Angreifer hinzu \nund aktiviert diese
 
 loop bis Karten Verteidiger = 0 \noder Verteidiger nimmt Karten auf \noder timer ist abgelaufen
     
@@ -90,7 +90,8 @@ loop bis Karten Verteidiger = 0 \noder Verteidiger nimmt Karten auf \noder timer
     note left of a #aqua
     Ein Spezialfall an dieser Stelle wäre,
     dass einer der Spieler keine Karten mehr 
-    auf der Hand hat.
+    auf der Hand hat und der Stapel (Deck)
+    aufgebraucht ist.
     In diesem Fall werden alle Angreifer 
     deaktiviert und können keine Karten 
     mehr dazulegen.
