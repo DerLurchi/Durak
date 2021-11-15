@@ -1,0 +1,45 @@
+@startuml
+left to right direction
+
+skinparam{
+    UsecaseBackgroundColor white
+    UsecaseBorderColor black
+
+    ArrowColor black
+
+    Shadowing false
+
+    ActorBackgroundColor white
+    ActorBorderColor black
+}
+
+actor :Spieler: as Spieler
+actor :Angreifer: as Angreifer
+actor :Verteidiger: as Verteidiger
+actor :Spielleiter: as Leiter
+
+
+rectangle Spiel {
+    (Spiel verlassen) as verlassen
+    (Spiel beenden) as beenden
+    (angreifen)
+    (verteidigen)
+    (schieben)
+    (nachziehen)
+}
+
+Angreifer --|> Spieler
+Verteidiger --|> Spieler
+Leiter --|> Spieler
+
+Spieler -- verlassen
+Spieler -- nachziehen
+Angreifer -- angreifen
+Verteidiger -- verteidigen
+Verteidiger -- schieben
+
+Leiter -- beenden
+
+verlassen .> beenden : <<extend>>
+
+@enduml

@@ -1,0 +1,135 @@
+@startuml Durak Zug
+
+skinparam {
+    Style strictuml
+
+    ArrowColor black
+    ActorBorderColor black
+    ActorBackgroundColor white
+    ActorFontColor black
+
+    EntityBackgroundColor lawnGreen
+    EntityBackgroundColor white
+    EntityBorderColor black
+
+    SequenceMessageAlignment center 
+}
+
+skinparam sequence {
+    LifeLineBorderColor black
+    LifeLineBackgroundColor #aqua
+}
+
+skinparam Shadowing false
+
+'-----------------------------------------------------
+
+actor "1. Angreifer" as a1
+actor "Angreifer" as a
+entity System as sys
+actor Verteidiger as v
+
+'-----------------------------------------------------
+activate a1
+a1 -> sys --++: erste Karte \nlegen
+note left: ab hier startet der Angriff
+
+
+sys -> v ++ : aktiviert
+sys -> sys : Fügt dem Timer Zeit hinzu
+note left  
+Hier hat der Verteidiger die 
+Chance eine Karte des 
+gleichen Werts hinzuzulegen.
+Dies triggert die funktion schieben()
+des Systems
+end note
+sys -> a ++-- : aktiviert
+
+
+loop bis Karten Verteidiger = 0 \noder Verteidiger nimmt Karten auf \noder timer ist abgelaufen
+    
+    a ->> sys ++: Karte dazu legen
+
+    sys -> sys : validiert Karte
+
+    alt true
+
+        sys -> sys : platziert Karte auf Tisch
+        sys -> sys : Fügt dem Timer Zeit hinzu
+
+    else false
+
+        sys -> a --: Karte an Angreifer zurück
+
+    end
+    note left: bis zu diesem \nBlock wird der \nAngriff \nbeschrieben
+
+    v ->> sys ++ : Legt Karte auf Angriffskarte,\num zu schalgen
+    note left: Ab hier startet \ndie Verteidigung\n
+
+    sys -> sys : validiert Karte
+
+    alt true
+
+        sys -> sys : Karte wird auf \n Angriffskarte platziert
+
+    else false
+
+        sys -> v -- : Karte an Verteidiger zurück
+
+    end
+    note left: Dieser Block gehört \nnoch zur Verteidigung
+
+    v ->> sys ++ : nimmt Karten auf \n(durch Benutzereingabe)
+    sys ->> sys: bricht Zug ab \n(durch Timerablauf)
+    note left of a #aqua
+    Ein Spezialfall an dieser Stelle wäre,
+    dass einer der Spieler keine Karten mehr 
+    auf der Hand hat.
+    In diesem Fall werden alle Angreifer 
+    deaktiviert und können keine Karten 
+    mehr dazulegen.
+    Der Verteidiger hat die Chance 
+    seinen Zug noch zu beenden.
+    Danach wird die Runde beendet.
+    Pro Spieler werden die übrigen 
+    Handkarten nach ihrem Wert (Bild = 10) 
+    zusammengezählt und auf das jeweilige 
+    Gesamtkonto addiert.
+    end note
+
+end
+
+
+sys -> v : verteidiger deaktivieren
+deactivate v
+sys -> a : angreifer deaktivieren
+deactivate a
+
+sys -> sys : prüft ob alle Karten geschlagen wurden, \nmerkt sich das Ergebnis
+
+alt false
+
+    sys -> v : alle Karten auf dem Tisch an Verteidiger
+
+end
+
+loop für jeden spieler, \nbegonnen bei angreifer1, \n solange stapel > 0 und spielerkarten < 6
+    sys -> v : Karte vom Stapel nehmen \nund an spieler geben
+    sys -> a : Karte vom Stapel nehmen \nund an spieler geben
+end
+
+alt wenn alle Karten geschlagen wurden
+    sys -> sys : Verteidiger wird zu Angreifer1
+
+else
+    sys -> sys : Spieler nach Verteidiger wird zu Angreifer1
+end
+
+sys -> sys : Spieler nach neuem Angreifer1 \nwird zu Verteidiger
+
+sys -> a1 ++ : Aktiviert Angreifer 1
+
+
+@enduml
