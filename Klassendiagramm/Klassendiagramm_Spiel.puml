@@ -18,23 +18,34 @@ class Spiel {
     -verteidiger: Spieler
     -angreifer: Spieler
     -trumpf: Farbe
-    -tischKarten: Angriffskarten:Verteidigungskarten{}
-    -rangliste: Spieler:Punkte{}
+    -regeln: Spielregeln
+    -deck: Deck
+    +tischKarten: Angriffskarten:Verteidigungskarten{}
+    +rangliste: Spieler:Punkte{}
 
     -spielStarten(regeln, trumpf) : Deck
-    -zugBeenden()
+    + zugBeenden()
     -verteidigerDeffinieren(angreifer)
     -angreiferDeffinieren(verteidiger)
     -schieben()
-    -karteValidieren(Karte) : Bool
+    +karteValidieren(Karte, Spieler, Zielkarte) : Bool
+}
+
+class Spielregeln {
+    + joker: Joker
+    + einzelrunde: Bool
+    + zeitProKarte: Int
 }
 
 class Spieler {
     +name : String
+    -passwort : String
+    -mail : String
     +rolle: Rolle
-    -hand: Karte[]
+    +hand: Karte[]
 
-    -karteLegen(Karte)
+    -karteLegen(Karte, Zielkarte)
+    -spielVerlassen()
 }
 
 class Karte {
@@ -48,8 +59,9 @@ class Joker {
 
 class Deck {
     -karten: Karte[]
-
-    -trumphwertSetzen()
+    
+    -mischen(regeln) : Karte[]
+    -trumphwertSetzen(trumph)
     +kartenGeben(anz) : Karte[]
 }
 
@@ -61,18 +73,24 @@ enum Farbe {
 }
 
 enum Rolle {
+    - Keine  
     - Verteidiger
     - Angreifer
 }
 
-Spiel "1" *-- "2..5" Spieler
+Spiel "1" o-- "2..5" Spieler : spielt <
 
-Spiel "1" *-- "1" Deck
+Spiel "1" o-- "1" Deck : hat >
 
-Deck "1" *-- "36..40" Karte
+Deck "1" o-- "0..40" Karte : hat >
 
 Karte <|-- "4" Joker 
 
-Spieler "1" o-- "0..40" Karte 
+Spieler "1" o-- "0..40" Karte : hat auf der Hand >
+
+Spiel "1" o-- "1" Spielregeln : hat >
+
+Deck "1" -- "1" Spielregeln : braucht zum mischen >
+
 
 @enduml
