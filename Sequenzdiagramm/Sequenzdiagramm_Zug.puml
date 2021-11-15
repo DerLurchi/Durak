@@ -34,7 +34,6 @@ activate a1
 a1 -> sys --++: erste Karte \nlegen
 note left: ab hier startet der Angriff
 
-
 sys -> v ++ : aktiviert
 sys -> sys : Fügt dem Timer Zeit hinzu
 note left  
@@ -45,7 +44,6 @@ Dies triggert die funktion schieben()
 des Systems
 end note
 sys -> a ++-- : aktiviert
-
 
 loop bis Karten Verteidiger = 0 \noder Verteidiger nimmt Karten auf \noder timer ist abgelaufen
     
@@ -67,6 +65,12 @@ loop bis Karten Verteidiger = 0 \noder Verteidiger nimmt Karten auf \noder timer
 
     v ->> sys ++ : Legt Karte auf Angriffskarte,\num zu schalgen
     note left: Ab hier startet \ndie Verteidigung\n
+    note right of v #aqua
+    Ein Spezialfall an dieser Stelle wäre,
+    dass der Verteidiger auf die erste Angriffskarte 
+    eine Karte mit gleichem Wert zieht. In diesem Fall
+    siehe "schieben".
+    end note
 
     sys -> sys : validiert Karte
 
@@ -101,7 +105,6 @@ loop bis Karten Verteidiger = 0 \noder Verteidiger nimmt Karten auf \noder timer
 
 end
 
-
 sys -> v : verteidiger deaktivieren
 deactivate v
 sys -> a : angreifer deaktivieren
@@ -130,6 +133,5 @@ end
 sys -> sys : Spieler nach neuem Angreifer1 \nwird zu Verteidiger
 
 sys -> a1 ++ : Aktiviert Angreifer 1
-
 
 @enduml

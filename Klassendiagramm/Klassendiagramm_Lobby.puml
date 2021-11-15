@@ -6,7 +6,8 @@ skinparam{
 
     'ClassAttributeIconSize 0
 
-    ArrowColor black
+    ArrowColor #404040
+    ArrowFontColor #000050
 
     Shadowing false
 
@@ -17,7 +18,7 @@ class Spieler {
     -passwort: String
     -mail: String
     -eigenesSpiel: Spiel
-    -spielregelnDeffinieren(eigenesSpiel)
+    -spielregelnDefinieren(eigenesSpiel)
     -spielStarten(eigenesSpiel)
     -spielLoeschen(eigenesSpiel)
     -spielBeitreten()
@@ -31,7 +32,7 @@ end note
 class Lobby {
     +offeneSpiele: Spiel[]
     +anwesendeSpieler: Spieler[]
-    -regestrieren(name, mail, pwd)
+    -registrieren(name, mail, pwd)
     -einloggen(name, pwd)
     -ausloggen(Spieler)
     -spielStarten(Spiel)
@@ -44,7 +45,7 @@ class Spiel {
 }
 
 class Spielregeln {
-    + joker: Joker
+    + joker: Jokerfunktion
     + einzelrunde: Bool
     + zeitProKarte: Int
 }
@@ -54,14 +55,13 @@ class Chat {
     + privateNachrichtPosten(Spieler, nachricht)
 }
 
-enum Joker {
+enum Jokerfunktion {
     -kein Joker
     -Handkarte und Rolle tauschen
     -höher als Ass
 }
 
 enum Spieleranzahl {
-    - 1
     - 2
     - 3
     - 4
@@ -72,7 +72,7 @@ enum Spieleranzahl {
 
 Lobby "1" o-- "0..*" Spieler : hat >
 
-Spieler "1..5" --o "1" Spiel : tritt bei oder erstellt >
+Spieler "1..5" --* "1" Spiel : tritt bei oder erstellt >
 
 Spiel "1" --* "1" Spielregeln : hat >
 
@@ -82,6 +82,6 @@ Spieler "0..*" -- "1" Chat : nutzt >
 
 Lobby "1" *-- "1" Chat : verwaltet >
 
-Spieler "0..1" -- "1" Spielregeln: deffiniert > 
+Spieler "0..1" -- "1" Spielregeln: definiert > 
 
 @enduml

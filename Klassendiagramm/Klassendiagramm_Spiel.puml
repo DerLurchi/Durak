@@ -6,7 +6,8 @@ skinparam{
 
     'ClassAttributeIconSize 0
 
-    ArrowColor black
+    ArrowColor #404040
+    ArrowFontColor #000050
 
     Shadowing false
 
@@ -25,14 +26,14 @@ class Spiel {
 
     -spielStarten(regeln, trumpf) : Deck
     + zugBeenden()
-    -verteidigerDeffinieren(angreifer)
-    -angreiferDeffinieren(verteidiger)
+    -verteidigerDefinieren(angreifer)
+    -angreiferDefinieren(verteidiger)
     -schieben()
     +karteValidieren(Karte, Spieler, Zielkarte) : Bool
 }
 
 class Spielregeln {
-    + joker: Joker
+    + joker: Jokerfunktion
     + einzelrunde: Bool
     + zeitProKarte: Int
 }
@@ -77,6 +78,13 @@ enum Rolle {
     - Verteidiger
     - Angreifer
 }
+
+enum Jokerfunktion {
+    -kein Joker
+    -Handkarte und Rolle tauschen
+    -höher als Ass
+}
+
 
 Spiel "1" o-- "2..5" Spieler : spielt <
 
